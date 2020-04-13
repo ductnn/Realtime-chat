@@ -12,6 +12,7 @@
 
     <!-- js -->
     <script src="/js/jquery-3.5.0.min.js"></script>
+    <script src="socket.io/socket.io.js"></script>
 </head>
 <body>
     <div id="wrapper">
@@ -19,6 +20,7 @@
     </div>
     
     <script>
+        const socket = io("http://localhost:3000");
         $(document).ready(() => {
             alert("Hello World!!!");
         });
