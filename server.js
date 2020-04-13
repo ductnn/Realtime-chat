@@ -9,23 +9,41 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 server.listen(3000);
 
+
+
 // Middleware
-app.use(express.json()) // for parsing application/json
-app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+// app.use(express.json()) // for parsing application/json
+// app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(express.static("public"));
 
 // View 
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
+var arrUsers = ["AAA"];
+
 io.on("connection", (socket) => {
-    console.log("Connected ...");
-    console.log(socket.id)
-    socket.on("disconnect", () => console.log(socket.id + " disconnected"));
-    socket.on("Client-send-data", (data) => {
-        console.log(socket.id + " sends " + data);
-        io.sockets.emit("Server-send-data", data);
+    console.log("Connected ... " + socket.id);
+
+    socket.on("client-send-Username", (data) => {
+        // socket.emit("server-send-RegistFailed");
+        console.log(data);
+        if (arrUsers.indexOf(data) >= 0) {
+            // failed
+            socket.emit("server-send-RegistFailed");
+        } else {
+            // success
+            arrUsers.push(data);
+            socket.emit("server-send-RegistSuccess", data)
+        }
+        console.log(arrUsers)
     });
+
+    // socket.on("disconnect", () => console.log(socket.id + " disconnected"));
+    // socket.on("Client-send-data", (data) => {
+    //     console.log(socket.id + " sends " + data);
+    //     io.sockets.emit("Server-send-data", data);
+    // });
 });
 
 app.get('/', (req, res) => {

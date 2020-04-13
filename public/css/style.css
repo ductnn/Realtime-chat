@@ -8,7 +8,7 @@ body {
 }
 
 /* login */
-#txtUserName {
+#txtUsername {
     background-color: transparent;
     border: solid 1px black;
     margin-bottom: 20px;
