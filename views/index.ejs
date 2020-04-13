@@ -18,10 +18,16 @@
     <div id="wrapper">
         <h1>Hello <%= (name) %></h1>
         <div id="clientSendData">Send</div>
+        <h2 id="content"></h2>
     </div>
     
     <script>
         const socket = io("http://localhost:3000");
+
+        socket.on("Server-send-data", (data) => {
+            $("#content").append(data + ", ");
+        })
+
         $(document).ready(() => {
             $("#clientSendData").click(() => {
                 socket.emit("Client-send-data", "Hello");
