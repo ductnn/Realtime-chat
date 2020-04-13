@@ -17,12 +17,15 @@
 <body>
     <div id="wrapper">
         <h1>Hello <%= (name) %></h1>
+        <div id="clientSendData">Send</div>
     </div>
     
     <script>
         const socket = io("http://localhost:3000");
         $(document).ready(() => {
-            alert("Hello World!!!");
+            $("#clientSendData").click(() => {
+                socket.emit("Client-send-data", "Hello");
+            });
         });
     </script>
 </body>

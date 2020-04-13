@@ -20,6 +20,9 @@ app.set("views", "./views");
 
 io.on("connection", (socket) => {
     console.log("Connected ...");
+    console.log(socket.id)
+    socket.on("disconnect", () => console.log(socket.id + " disconnected"));
+    socket.on("Client-send-data", (data) => console.log(data));
 });
 
 app.get('/', (req, res) => {
