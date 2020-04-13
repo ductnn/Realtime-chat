@@ -1,4 +1,60 @@
+body {
+    background-color: #ebeef4;
+}
+
 #wrapper {
     width: 900px;
     margin: 0px auto;
+}
+
+/* login */
+#txtUserName {
+    background-color: transparent;
+    border: solid 1px black;
+    margin-bottom: 20px;
+}
+
+/* chat */
+#left, #right { 
+    min-height: 500px;
+}
+#left {
+    width: 30%;
+    float: left;
+    background-color: #f0f2d0;
+}
+#right {
+    width: 70%;
+    float: right;
+    background-color: #d4f9f8;
+}
+
+/* left chat */
+#boxTitle {
+    border: solid 1px black;
+    padding: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#boxContent {
+    border: solid 1px black;
+    border-top: none;
+    padding: 5px;
+    text-align: center;
+}
+
+/* rigth chat */
+#sayHi {
+    text-align: right;
+}
+
+#listMess {
+    height: 300px;
+    background-color: #fcead4;
+}
+
+#txtMess {
+    background-color: transparent;
+    border: solid 1px black;
 }

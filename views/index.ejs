@@ -13,26 +13,39 @@
     <!-- js -->
     <script src="/js/jquery-3.5.0.min.js"></script>
     <script src="socket.io/socket.io.js"></script>
+    <script src="/js/script.js"></script>
 </head>
 <body>
     <div id="wrapper">
-        <h1>Hello <%= (name) %></h1>
-        <div id="clientSendData">Send</div>
-        <h2 id="content"></h2>
+
+        <div id="loginForm">
+            <h3>What's your name?</h3>
+            <input type="text" id="txtUserName">
+            <input type="button" value="Register" id="btnRegister">
+        </div>
+
+        <div id="chatForm">
+            <div id="left">
+                <div id="boxTitle"> User Online </div>
+                <div id="boxContent"></div>
+            </div>
+
+            <div id="right">
+                <div id="sayHi">
+                    Hello <span id="currentUser">Ductn</span>
+                    <input type="button" value="Logout" id="btnLogout">
+                </div>
+
+                <div id="listMess"></div>
+
+                <input type="text" id="txtMess">
+                <input type="button" value="Send" id="btnSend">
+
+            </div>
+        </div>
+
     </div>
     
-    <script>
-        const socket = io("http://localhost:3000");
-
-        socket.on("Server-send-data", (data) => {
-            $("#content").append(data + ", ");
-        })
-
-        $(document).ready(() => {
-            $("#clientSendData").click(() => {
-                socket.emit("Client-send-data", "Hello");
-            });
-        });
-    </script>
+    
 </body>
 </html>

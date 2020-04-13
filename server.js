@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
     console.log(socket.id)
     socket.on("disconnect", () => console.log(socket.id + " disconnected"));
     socket.on("Client-send-data", (data) => {
-        console.log(socket.id + "sends" + data);
+        console.log(socket.id + " sends " + data);
         io.sockets.emit("Server-send-data", data);
     });
 });
