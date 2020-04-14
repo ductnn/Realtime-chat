@@ -10,12 +10,25 @@ socket.on("server-send-RegistSuccess", (data) => {
     $("#chatForm").show(1000);
 });
 
+socket.on("server-send-arrUsers", function(data) {
+    $("#boxContent").html("");
+    data.forEach(user => {
+        $("#boxContent").append("<div class='userOnline'>" + user + "</div>");
+    });
+});
+
 $(document).ready(() => {
     $("#loginForm").show();
     $("#chatForm").hide();
 
     $("#btnRegister").click(function(){
         socket.emit("client-send-Username", $("#txtUsername").val());
+    });
+
+    $("#btnLogout").click(function() {
+        socket.emit("logout");
+        $("#chatForm").hide(2);
+        $("#loginForm").show(1);
     });
 });
 

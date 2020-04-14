@@ -25,6 +25,7 @@ var arrUsers = ["AAA"];
 io.on("connection", (socket) => {
     console.log("Connected ... " + socket.id);
 
+    // Register
     socket.on("client-send-Username", (data) => {
         // socket.emit("server-send-RegistFailed");
         console.log(data);
@@ -34,9 +35,18 @@ io.on("connection", (socket) => {
         } else {
             // success
             arrUsers.push(data);
-            socket.emit("server-send-RegistSuccess", data)
+            socket.Username = data;
+            socket.emit("server-send-RegistSuccess", data);
+            io.sockets.emit("server-send-arrUsers", arrUsers);
         }
-        console.log(arrUsers)
+        console.log(arrUsers);
+    });
+
+    // Logout
+    socket.on("logout", function() {
+        arrUsers.splice(arrUsers.indexOf(socket.Username), 1);
+        socket.broadcast.emit("server-send-arrUsers", arrUsers)
+        console.log(arrUsers);
     });
 
     // socket.on("disconnect", () => console.log(socket.id + " disconnected"));
