@@ -7,20 +7,17 @@ const app = new express();
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-server.listen(3000);
-
-
 
 // Middleware
-// app.use(express.json()) // for parsing application/json
-// app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use(express.static("public"));
 
 // View 
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
-var arrUsers = ["AAA"];
+var arrUsers = [];
 
 io.on("connection", (socket) => {
     console.log("Connected ... " + socket.id);
@@ -49,6 +46,11 @@ io.on("connection", (socket) => {
         console.log(arrUsers);
     });
 
+    // User sends message
+    socket.on("user-send-mess", function(data) {
+        io.sockets.emit("server-send-mess", {user_name: socket.Username, content: data});
+    });
+
     // socket.on("disconnect", () => console.log(socket.id + " disconnected"));
     // socket.on("Client-send-data", (data) => {
     //     console.log(socket.id + " sends " + data);
@@ -62,4 +64,4 @@ app.get('/', (req, res) => {
     });
 });
 
-// app.listen(port, () => console.log(`Server is running on port ${port}`));
+server.listen(port, () => console.log(`Server is running on port ${port}`));
